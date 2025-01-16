@@ -1,45 +1,29 @@
-import 'dart:collection';
-
-import 'package:table_calendar/table_calendar.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class Event {
+  final int id;
   final String title;
+  final DateTime date;
 
-  const Event(this.title);
+  Event({required this.id, required this.title, required this.date});
 
-  @override
-  String toString() => title;
+  factory Event.fromJson(Map<String, dynamic> json) {
+    return Event(
+      id: json['id'],
+      title: json['title'],
+      date: DateTime.parse(json['date']),
+    );
+  }
 }
 
-final kEvents = LinkedHashMap<DateTime, List<Event>>(
-  equals: isSameDay,
-  hashCode: getHashCode,
-)..addAll(_kEventSource);
+Future<List<Event>> fetchEvents() async {
+  final response = await http.get(Uri.parse('http://<your-django-url>/api/events/'));
 
-final _kEventSource = {
-  for (var item in List.generate(50, (index) => index))
-    DateTime.utc(kFirstDay.year, kFirstDay.month, item * 5): List.generate(
-      item % 4 + 1,
-      (index) => Event('นัดตรวจเพิ่มเติมที่ $item | ${index + 1}'),
-    ),
-}..addAll({
-    kToday: [
-      const Event("นัดตรวจหัวใจ"),
-    ],
-  });
-
-int getHashCode(DateTime key) {
-  return key.day * 1000000 + key.month * 10000 + key.year;
+  if (response.statusCode == 200) {
+    List<dynamic> data = json.decode(response.body);
+    return data.map((event) => Event.fromJson(event)).toList();
+  } else {
+    throw Exception('Failed to load events');
+  }
 }
-
-List<DateTime> daysInRange(DateTime first, DateTime last) {
-  final dayCount = last.difference(first).inDays + 1;
-  return List.generate(
-    dayCount,
-    (index) => DateTime.utc(first.year, first.month, first.day + index),
-  );
-}
-
-final kToday = DateTime.now();
-final kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
-final kLastDay = DateTime(kToday.year, kToday.month + 3, kToday.day);
