@@ -19,7 +19,7 @@ class ApiService {
     String? token = await getAccessToken();
     if (token == null) throw Exception("Token not found. Please login again.");
 
-    final uri = Uri.parse(baseUrl+url);
+    final uri = Uri.parse(baseUrl + url);
     try {
       final response = await http.get(
         uri,
@@ -366,13 +366,11 @@ class ApiService {
 
   Future<List<dynamic>> getPackage() async {
     final response = await _get('packages/package/');
-    if (response is List<dynamic>){
+    if (response is List<dynamic>) {
       return response;
     } else {
       throw Exception(
-          'Failed to load package. Status code: ${response
-              .statusCode}, Message: ${response.body}'
-      );
+          'Failed to load package. Status code: ${response.statusCode}, Message: ${response.body}');
     }
   }
 
@@ -399,7 +397,7 @@ class ApiService {
   Future<List<dynamic>> getPopulation() async {
     final response = await _get('populations/population/');
     // Check if the response is a List<dynamic>
-    if (response is List<dynamic> ) {
+    if (response is List<dynamic>) {
       return response; // Return the list as is
     } else {
       throw Exception(
@@ -414,6 +412,17 @@ class ApiService {
     } else {
       throw Exception(
           'Failed to load promotion. Status code: ${response.statusCode}, Message: ${response.body}');
+    }
+  }
+
+  Future<List<dynamic>> getEvents() async {
+    final response = await _get('events/event/');
+    if (response is List<dynamic>) {
+      return response;
+    } else {
+      throw Exception(
+        'Failed to fetch events. Status code: ${response.statusCode}, Message: ${response.body}',
+      );
     }
   }
 }

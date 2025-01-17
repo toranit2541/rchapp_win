@@ -1,6 +1,5 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:rchapp_v2/data/apiservice.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class Event {
@@ -51,27 +50,28 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
   }
 
   Future<void> _fetchEvents() async {
-    try {
-      final response = await http.get(Uri.parse('http://<your-django-url>/api/events/'));
-      if (response.statusCode == 200) {
-        final List<dynamic> data = json.decode(response.body);
-        final fetchedEvents = data.map((json) => Event.fromJson(json)).toList();
+    setState(() {
+      _isLoading = true;
+    });
 
-        setState(() {
-          _events = {};
-          for (var event in fetchedEvents) {
-            final date = DateTime(event.date.year, event.date.month, event.date.day);
-            if (_events[date] == null) {
-              _events[date] = [];
-            }
-            _events[date]!.add(event);
+    try {
+      final apiService = ApiService();
+      final fetchedEvents = await apiService
+          .getEvents(); // Assuming getEvents() returns a List<Event>
+
+      setState(() {
+        _events = {};
+        for (var event in fetchedEvents) {
+          final date =
+              DateTime(event.date.year, event.date.month, event.date.day);
+          if (_events[date] == null) {
+            _events[date] = [];
           }
-          _selectedEvents.value = _getEventsForDay(_selectedDay!);
-          _isLoading = false;
-        });
-      } else {
-        throw Exception('Failed to fetch events');
-      }
+          _events[date]!.add(event);
+        }
+        _selectedEvents.value = _getEventsForDay(_selectedDay!);
+        _isLoading = false;
+      });
     } catch (e) {
       setState(() {
         _isLoading = false;
@@ -184,7 +184,8 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                 '${value[index].date}',
                                 style: const TextStyle(color: Colors.grey),
                               ),
-                              trailing: const Icon(Icons.event, color: Colors.teal),
+                              trailing:
+                                  const Icon(Icons.event, color: Colors.teal),
                             ),
                           );
                         },
