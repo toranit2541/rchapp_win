@@ -198,7 +198,9 @@ class _LabDataScreenState extends State<LabDataScreen> {
                       cells: cells,
                     );
                   }).toList();
-
+                  if (headerWidgets.length > 1){
+                    headerWidgets[0] = 'รายการตรวจ';
+                  }
                   return ScrollableTableView(
                     headers: headerWidgets, // Pass the dynamic headers
                     rows: tableRows, // Pass the dynamic rows
