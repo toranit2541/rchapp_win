@@ -162,17 +162,16 @@ class _LabDataScreenState extends State<LabDataScreen> {
                   final allTableData = snapshot.data!;
                   final screenWidth = MediaQuery.of(context).size.width;
 
-                  // Dynamically extract headers from the first data item
+// Dynamically extract headers from the first data item
                   final headers = allTableData.isNotEmpty
                       ? (allTableData[0] as Map<String, dynamic>).keys.toList()
                       : [];
 
-                  // Determine column count dynamically
-
+// Determine column count dynamically
                   final colnum = headers.length <= 3 ? headers.length : 3;
                   final columnWidth = screenWidth / colnum;
 
-                  // Generate header widgets dynamically
+// Generate header widgets dynamically
                   final headerWidgets = headers.map((header) {
                     return TableViewHeader(
                       minWidth: columnWidth,
@@ -182,7 +181,17 @@ class _LabDataScreenState extends State<LabDataScreen> {
                     );
                   }).toList();
 
-                  // Generate row widgets dynamically based on data
+// Modify the first header if there are multiple headers
+                  if (headerWidgets.length > 1) {
+                    headerWidgets[0] = TableViewHeader(
+                      minWidth: columnWidth,
+                      alignment: Alignment.center,
+                      label: 'รายการตรวจ', // Updated header label
+                      textStyle: const TextStyle(fontSize: 13.00),
+                    );
+                  }
+
+// Generate row widgets dynamically based on data
                   final tableRows = allTableData.map<TableViewRow>((labApp) {
                     final cells = headers.map((header) {
                       return TableViewCell(
@@ -199,12 +208,10 @@ class _LabDataScreenState extends State<LabDataScreen> {
                     );
                   }).toList();
 
-                  if (headerWidgets.length > 1){
-                    headerWidgets[0] = 'รายการตรวจ' as TableViewHeader;
-                  }
+// Pass the headerWidgets and tableRows to ScrollableTableView
                   return ScrollableTableView(
-                    headers: headerWidgets, // Pass the dynamic headers
-                    rows: tableRows, // Pass the dynamic rows
+                    headers: headerWidgets,
+                    rows: tableRows,
                   );
                 }
               },
