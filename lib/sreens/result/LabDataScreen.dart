@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:rchapp_v2/sreens/result/chartses/line_chart.dart';
 import 'package:scrollable_table_view/scrollable_table_view.dart';
 import 'package:rchapp_v2/data/apiservice.dart';
+import 'package:intl/intl.dart';
 
 class LabDataScreen extends StatefulWidget {
   final String title;
@@ -194,10 +195,21 @@ class _LabDataScreenState extends State<LabDataScreen> {
 // Generate row widgets dynamically based on data
                   final tableRows = allTableData.map<TableViewRow>((labApp) {
                     final cells = headers.map((header) {
+                      final cellValue = labApp[header]?.toString();
                       return TableViewCell(
-                        child: Text(
-                          labApp[header]?.toString() ?? '-',
-                          style: const TextStyle(fontSize: 12.00),
+                        child: InkWell(
+                          onTap: (cellValue?.isNotEmpty ?? false)
+                              ? () {
+                                  print('Tapped cell with value: $cellValue');
+                                }
+                              : null,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Text(
+                              cellValue ?? '-',
+                              style: const TextStyle(fontSize: 12.0),
+                            ),
+                          ),
                         ),
                       );
                     }).toList();
@@ -256,8 +268,11 @@ class _LabDataScreenState extends State<LabDataScreen> {
                               .entries
                               .map((indexedEntry) {
                                 try {
-                                  // The index acts as the x value
-                                  final x = (indexedEntry.key + 1).toDouble();
+                                  // Parse the date key as the x value
+                                  final DateTime date = DateFormat("yyyy-MM-dd")
+                                      .parse(indexedEntry.value.key);
+                                  final double x =
+                                      date.millisecondsSinceEpoch.toDouble();
 
                                   // Parse the value (indexedEntry.value.value) to a double, accounting for commas
                                   final y = indexedEntry.value.value is num

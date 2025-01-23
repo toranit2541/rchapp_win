@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class LineCharts extends StatefulWidget {
   const LineCharts({
@@ -47,9 +48,9 @@ class _LineChartsState extends State<LineCharts> {
               show: true,
               gradient: LinearGradient(
                 colors: [
-                  widget.gradientColor1 ?? Colors.cyan.withOpacity(0.4),
-                  widget.gradientColor2 ?? Colors.blue.withOpacity(0.4),
-                  widget.gradientColor3 ?? Colors.purple.withOpacity(0.4),
+                  widget.gradientColor1 ?? Colors.cyan,
+                  widget.gradientColor2 ?? Colors.blue,
+                  widget.gradientColor3 ?? Colors.purple,
                 ],
               ),
             ),
@@ -62,10 +63,20 @@ class _LineChartsState extends State<LineCharts> {
             ),
           ),
         ],
-        gridData: const FlGridData(show: false),
+        gridData: FlGridData(
+          show: true,
+          drawVerticalLine: true,
+          drawHorizontalLine: true,
+          getDrawingVerticalLine: (value) {
+            return FlLine(color: Colors.grey, strokeWidth: 1);
+          },
+          getDrawingHorizontalLine: (value) {
+            return FlLine(color: Colors.grey, strokeWidth: 1);
+          },
+        ),
         borderData: FlBorderData(
           show: true,
-          border: Border.all(color: Colors.grey),
+          border: Border.all(color: Colors.grey, width: 1),
         ),
         titlesData: FlTitlesData(
           bottomTitles: AxisTitles(
@@ -73,9 +84,15 @@ class _LineChartsState extends State<LineCharts> {
               showTitles: true,
               reservedSize: 32,
               getTitlesWidget: (value, meta) {
-                return Text(
-                  value.toInt().toString(), // Sequential x-axis labels
-                  style: const TextStyle(fontSize: 10),
+                final date = DateTime.fromMillisecondsSinceEpoch(value.toInt());
+                return Transform.rotate(
+                  angle: -90 *
+                      3.1415926535897932 /
+                      180, // Convert degrees to radians
+                  child: Text(
+                    DateFormat('MM/dd/yyyy').format(date),
+                    style: const TextStyle(fontSize: 10),
+                  ),
                 );
               },
             ),
@@ -85,10 +102,27 @@ class _LineChartsState extends State<LineCharts> {
               showTitles: true,
               reservedSize: 28,
               getTitlesWidget: (value, meta) {
-                return Text(value.toStringAsFixed(0),
-                    style: const TextStyle(fontSize: 10));
+                return Text(
+                  value.toStringAsFixed(0),
+                  style: const TextStyle(fontSize: 10),
+                );
               },
             ),
+          ),
+        ),
+        lineTouchData: LineTouchData(
+          touchTooltipData: LineTouchTooltipData(
+            // ignore: deprecated_member_use
+            getTooltipItems: (touchedSpots) {
+              return touchedSpots.map((spot) {
+                final date =
+                    DateTime.fromMillisecondsSinceEpoch(spot.x.toInt());
+                return LineTooltipItem(
+                  '${DateFormat('MM/dd/yyyy').format(date)}\n${spot.y.toStringAsFixed(2)}',
+                  const TextStyle(color: Colors.white),
+                );
+              }).toList();
+            },
           ),
         ),
       ),
