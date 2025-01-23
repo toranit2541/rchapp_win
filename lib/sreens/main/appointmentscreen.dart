@@ -175,7 +175,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                               borderRadius: BorderRadius.circular(12.0),
                             ),
                             child: ListTile(
-                              onTap: () => print('${value[index].title}'),
+                              onTap: () => print(value[index].title),
                               title: Text(
                                 value[index].title,
                                 style: const TextStyle(color: Colors.black),
