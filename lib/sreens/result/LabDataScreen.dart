@@ -323,9 +323,63 @@ void _showChartDialog(BuildContext context, List<FlSpot> spots) {
     pageBuilder: (context, animation, secondaryAnimation) {
       return SafeArea(
         child: Scaffold(
-          body: Center(
-            child: LineCharts(spots: spots),
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                // Row 1: Line chart and New Subscribers
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: Card(
+                        elevation: 4,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'New Activities',
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 8,),
+                              SizedBox(
+                                height: 150,
+                                child: LineCharts(spots: spots),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                // Row 2: Circular Statistics
+                Row(
+                  children: [
+                    _buildCircularStat('25%', Colors.purple, 'Statistics'),
+                    _buildCircularStat('58%', Colors.orange, 'Statistics'),
+                    _buildCircularStat('43%', Colors.purple, 'Statistics'),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                // Row 3: Categories, Earnings, Sales
+                Row(
+                  children: [
+                    _buildCard('Categories', '25', Colors.purple),
+                    _buildCard('Earnings', '\$3,200', Colors.red),
+                    _buildCard('Sales', '43%', Colors.purple),
+                  ],
+                ),
+              ],
+            ),
           ),
+          // body: Center(
+          //   child: LineCharts(spots: spots),
+          //
+          // ),
         ),
       );
     },
@@ -360,7 +414,7 @@ class GradientButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.2),
+              color: Colors.black,
               blurRadius: 4,
               offset: const Offset(2, 4),
             ),
@@ -385,3 +439,67 @@ class GradientButton extends StatelessWidget {
     );
   }
 }
+Widget _buildCircularStat(String percentage, Color color, String label) {
+  return Expanded(
+    child: Card(
+      elevation: 4,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            SizedBox(
+              width: 80,
+              height: 80,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  CircularProgressIndicator(
+                    value: double.parse(percentage.replaceAll('%', '')) / 100,
+                    color: color,
+                    backgroundColor: color.withOpacity(0.2),
+                    strokeWidth: 8,
+                  ),
+                  Center(
+                    child: Text(
+                      percentage,
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(label, style: const TextStyle(fontSize: 16)),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Widget _buildCard(String title, String value, Color color) {
+  return Expanded(
+    child: Card(
+      elevation: 4,
+      color: color.withOpacity(0.1),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              value,
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: color),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
