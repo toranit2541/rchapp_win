@@ -1,6 +1,7 @@
 import 'dart:core';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:rchapp_v2/sreens/result/chartses/bar_chart.dart';
 import 'package:rchapp_v2/sreens/result/chartses/line_chart.dart';
 import 'package:scrollable_table_view/scrollable_table_view.dart';
 import 'package:rchapp_v2/data/apiservice.dart';
@@ -327,7 +328,7 @@ void _showChartDialog(BuildContext context, List<FlSpot> spots) {
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                // Row 1: Line chart and New Subscribers
+                // Row 1: Line chart
                 Row(
                   children: [
                     Expanded(
@@ -340,13 +341,13 @@ void _showChartDialog(BuildContext context, List<FlSpot> spots) {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
-                                'New Activities',
+                                'Activity Over Time',
                                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                               ),
-                              const SizedBox(height: 8,),
+                              const SizedBox(height: 8),
                               SizedBox(
-                                height: 150,
-                                child: LineCharts(spots: spots),
+                                height: 275,
+                                child: LineCharts(spots: spots), // Ensure LineCharts accepts `spots`
                               ),
                             ],
                           ),
@@ -356,12 +357,41 @@ void _showChartDialog(BuildContext context, List<FlSpot> spots) {
                   ],
                 ),
                 const SizedBox(height: 16),
-                // Row 2: Circular Statistics
+                // Row 2: Bar chart
                 Row(
                   children: [
-                    _buildCircularStat('25%', Colors.purple, 'Statistics'),
-                    _buildCircularStat('58%', Colors.orange, 'Statistics'),
-                    _buildCircularStat('43%', Colors.purple, 'Statistics'),
+                    Expanded(
+                      flex: 2,
+                      child: Card(
+                        elevation: 4,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Activity Breakdown',
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 8),
+                              SizedBox(
+                                height: 275,
+                                child: BarChartWidget(
+                                  data: spots
+                                      .asMap()
+                                      .entries
+                                      .map((entry) => {
+                                    'label': 'Day ${entry.key + 1}',
+                                    'value': entry.value.y,
+                                  })
+                                      .toList(),
+                                ), // Pass properly formatted data
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 16),
@@ -370,16 +400,12 @@ void _showChartDialog(BuildContext context, List<FlSpot> spots) {
                   children: [
                     _buildCard('Categories', '25', Colors.purple),
                     _buildCard('Earnings', '\$3,200', Colors.red),
-                    _buildCard('Sales', '43%', Colors.purple),
+                    _buildCard('Sales', '43%', Colors.orange),
                   ],
                 ),
               ],
             ),
           ),
-          // body: Center(
-          //   child: LineCharts(spots: spots),
-          //
-          // ),
         ),
       );
     },
@@ -387,10 +413,36 @@ void _showChartDialog(BuildContext context, List<FlSpot> spots) {
       final tween = Tween(begin: const Offset(0, 1), end: Offset.zero);
       return SlideTransition(
         position: tween.animate(
-            CurvedAnimation(parent: animation, curve: Curves.easeInOut)),
+          CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+        ),
         child: child,
       );
     },
+  );
+}
+
+Widget _buildCard(String title, String value, Color color) {
+  return Expanded(
+    child: Card(
+      elevation: 4,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              title,
+              style: TextStyle(fontSize: 16, color: color, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              value,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      ),
+    ),
   );
 }
 
@@ -439,67 +491,5 @@ class GradientButton extends StatelessWidget {
     );
   }
 }
-Widget _buildCircularStat(String percentage, Color color, String label) {
-  return Expanded(
-    child: Card(
-      elevation: 4,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            SizedBox(
-              width: 80,
-              height: 80,
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  CircularProgressIndicator(
-                    value: double.parse(percentage.replaceAll('%', '')) / 100,
-                    color: color,
-                    backgroundColor: color.withOpacity(0.2),
-                    strokeWidth: 8,
-                  ),
-                  Center(
-                    child: Text(
-                      percentage,
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(label, style: const TextStyle(fontSize: 16)),
-          ],
-        ),
-      ),
-    ),
-  );
-}
 
-Widget _buildCard(String title, String value, Color color) {
-  return Expanded(
-    child: Card(
-      elevation: 4,
-      color: color.withOpacity(0.1),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              value,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: color),
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
-}
 
