@@ -7,7 +7,7 @@ class VirusBackgroundPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     // Background
-    Paint backgroundPaint = Paint()..color = Colors.black87;
+    Paint backgroundPaint = Paint()..color = Colors.white;
     canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), backgroundPaint);
 
     // Draw virus-like particles

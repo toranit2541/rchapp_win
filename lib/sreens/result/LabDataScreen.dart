@@ -47,7 +47,7 @@ class _LabDataScreenState extends State<LabDataScreen> {
         appBar: AppBar(
           title: SizedBox(
             width: 120,
-            child: Image.asset('assets/images/test/banner.png'),
+            child: Image.asset('assets/images/icons.png'),
           ),
           centerTitle: true,
           shape: const RoundedRectangleBorder(

@@ -31,13 +31,6 @@ flutter:
   assets:
     - assets/images/
     - assets/images/test/
-    - assets/images/16/
-    - assets/images/24/
-    - assets/images/32/
-    - assets/images/64/
-    - assets/images/128/
-    - assets/images/256/
-    - assets/images/512/
 
   fonts:
     - family: Opun

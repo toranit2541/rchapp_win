@@ -49,7 +49,7 @@ class _NewsPageState extends State<NewsPage> {
       appBar: AppBar(
         title: SizedBox(
           width: 120,
-          child: Image.asset('assets/images/test/banner.png'),
+          child: Image.asset('assets/images/icons.png'),
         ),
         centerTitle: true,
         shape: const RoundedRectangleBorder(
@@ -135,7 +135,7 @@ class NewsDetailPage extends StatelessWidget {
       appBar: AppBar(
         title: SizedBox(
           width: 120,
-          child: Image.asset('assets/images/test/banner.png'),
+          child: Image.asset('assets/images/icons.png'),
         ),
         centerTitle: true,
       ),

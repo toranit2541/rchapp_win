@@ -82,7 +82,7 @@ class _MedicalHistoryPageState extends State<MedicalHistoryPage>
       appBar: AppBar(
         title: SizedBox(
           width: 120,
-          child: Image.asset('assets/images/test/banner.png'),
+          child: Image.asset('assets/images/icons.png'),
         ),
         centerTitle: true,
         shape: const RoundedRectangleBorder(
@@ -100,63 +100,57 @@ class _MedicalHistoryPageState extends State<MedicalHistoryPage>
           // Medical Records List
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.85), // Background for readability
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(), // Smooth scrolling
-                itemCount: medicalRecords.length,
-                itemBuilder: (context, index) {
-                  final record = medicalRecords[index];
-                  return Card(
-                    margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
-                    elevation: 8, // Increased elevation for depth
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
+            child: ListView.builder(
+              physics: const BouncingScrollPhysics(), // Smooth scrolling
+              itemCount: medicalRecords.length,
+              itemBuilder: (context, index) {
+                final record = medicalRecords[index];
+                return Card(
+                  margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
+                  elevation: 8, // Increased elevation for depth
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "📅 Date: ${record["date"]}",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          "👨‍⚕️ Doctor: ${record["doctor"]}",
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Colors.blueGrey,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          "🩺 Diagnosis: ${record["diagnosis"]}",
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          "📝 Notes: ${record["notes"]}",
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ],
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "📅 Date: ${record["date"]}",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            "👨‍⚕️ Doctor: ${record["doctor"]}",
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.blueGrey,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            "🩺 Diagnosis: ${record["diagnosis"]}",
-                            style: const TextStyle(fontSize: 14),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            "📝 Notes: ${record["notes"]}",
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey,
-                              fontStyle: FontStyle.italic,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
           ),
         ],

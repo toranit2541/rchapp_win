@@ -7,7 +7,7 @@ class AnimatedVirusPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    Paint backgroundPaint = Paint()..color = Colors.black87;
+    Paint backgroundPaint = Paint()..color = Colors.white54;
     canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), backgroundPaint);
 
     for (var virus in viruses) {
