@@ -8,7 +8,7 @@ import 'dart:convert';
 // This is function class API service use for send method (get,put,puse,post,delete) to API service
 class ApiService {
   // baseUrl is Web API service URL back-end
-  final String baseUrl = "http://192.168.10.249:8000/";
+  final String baseUrl = "http://192.168.0.111:8000/";
 
   // set storage is internal storage to save VIP values (token, id card, etc.)
   final storage = const FlutterSecureStorage();
@@ -34,7 +34,7 @@ class ApiService {
       // Decode and return the response body
       return json.decode(utf8.decode(response.bodyBytes));
     } catch (e) {
-      print("Error during GET request to $url: $e");
+      // print("Error during GET request to $url: $e");
       throw Exception("GET request failed for $url: $e");
     }
   }
@@ -179,16 +179,19 @@ class ApiService {
       url,
       headers: {
         'Authorization': 'Bearer $token',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json; charset=utf-8', // Ensure UTF-8 encoding
       },
     );
 
-    _checkHttpResponse(response);
+    _checkHttpResponse(response); // Ensure response is valid
 
-    // Decode the response and handle the list format
-    final List<dynamic> decodedBody = json.decode(response.body);
-    if (decodedBody.isNotEmpty && decodedBody.first is Map<String, dynamic>) {
-      return decodedBody.first as Map<String, dynamic>;
+    // ✅ Decode with UTF-8 support
+    final dynamic decodedBody = json.decode(utf8.decode(response.bodyBytes));
+
+    if (decodedBody is Map<String, dynamic>) {
+      return decodedBody;
+    } else if (decodedBody is List && decodedBody.isNotEmpty && decodedBody.first is Map<String, dynamic>) {
+      return decodedBody.first;
     } else {
       throw Exception("Unexpected response format: ${decodedBody.runtimeType}");
     }
@@ -217,7 +220,7 @@ class ApiService {
 
   Future<String?> getAccessToken() async {
     final token = await storage.read(key: 'access');
-    print("Access Token: $token"); // Log the token to verify it
+    // print("Access Token: $token"); // Log the token to verify it
     return token;
   }
 
@@ -295,7 +298,7 @@ class ApiService {
         throw Exception('Error: ${response.reasonPhrase}');
       }
     } catch (e) {
-      print('Error fetching lab results: $e');
+      // print('Error fetching lab results: $e');
       throw Exception('Failed to fetch lab results: $e');
     }
   }
@@ -349,7 +352,7 @@ class ApiService {
         throw Exception('Error: ${response.reasonPhrase}');
       }
     } catch (e) {
-      print('Error fetching lab results: $e');
+      // print('Error fetching lab results: $e');
       throw Exception('Failed to fetch lab results: $e');
     }
   }

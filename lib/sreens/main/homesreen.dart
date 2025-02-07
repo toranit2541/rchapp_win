@@ -7,6 +7,7 @@ import 'package:rchapp_v2/sreens/main/newspage.dart';
 import 'package:rchapp_v2/sreens/main/shopping.dart';
 import 'package:rchapp_v2/sreens/main/vaccinationhistory.dart';
 import 'package:rchapp_v2/sreens/result/LabDataScreen.dart';
+import 'package:rchapp_v2/widget/backgroundpainter.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -75,85 +76,91 @@ class _HomePageState extends State<HomePage> {
       return const Center(child: CircularProgressIndicator());
     }
 
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildCarousel(height),
-            const SizedBox(height: 30),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: GridView.count(
-                crossAxisCount: 3,
-                shrinkWrap: true,
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 5,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  _buildGridItem(
-                    context,
-                    Icons.assignment_rounded,
-                    'ผลตรวจ\nสุขภาพ',
-                    LabDataScreen(
-                      title: 'ผลตรวจสุขภาพ',
-                    ),
-                  ),
-                  // _buildGridItem(
-                  //   context,
-                  //   Icons.calendar_month_rounded,
-                  //   'หมอนัด',
-                  //   const AppointmentScreen(
-                  //     title: 'หมอนัด',
-                  //   ),
-                  // ),
-                  _buildGridItem(
-                    context,
-                    Icons.shopify_rounded,
-                    'บริการ\nโรงพยาบาล',
-                    const ShoppingPage(),
-                  ),
-                  _buildGridItem(
-                    context,
-                    Icons.newspaper_rounded,
-                    'ข่าวสาร',
-                    NewsPage(),
-                  ),
-                  _buildGridItem(
-                    context,
-                    Icons.event_repeat_rounded,
-                    'ประวัติ\nการรักษา',
-                    MedicalHistoryPage(
-                      title: 'ประวัติการรักษา',
-                    ),
-                  ),
-                  _buildGridItem(
-                    context,
-                    Icons.vaccines_rounded,
-                    'ประวัติ\nฉีดวัคซีน',
-                    VaccinationHistoryPage(
-                      title: 'ประวัติฉีดวัคซีน',
-                    ),
-                  ),
-                  _buildGridItem(
-                    context,
-                    Icons.contact_phone_rounded,
-                    'สมุดโทรศัพท์',
-                    ContractPage(
-                      title: 'สมุดโทรศัพท์',
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            _buildSectionHeader("คุณอาจสนใจ !!", Icons.medical_services),
-            const SizedBox(height: 10),
-            _buildPromotionCarousel(),
-          ],
-        ),
-      ),
+    return Stack(children: [
+      Positioned.fill(child: CustomPaint(painter: BackgroundPainter())),
+    SingleChildScrollView(
+    child: Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+    _buildCarousel(height),
+    const SizedBox(height: 30),
+    Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 16),
+    child: GridView.count(
+    crossAxisCount: 3,
+    shrinkWrap: true,
+    crossAxisSpacing: 5,
+    mainAxisSpacing: 5,
+    physics: const NeverScrollableScrollPhysics(),
+    children: [
+    _buildGridItem(
+    context,
+    Icons.assignment_rounded,
+    'ผลตรวจ\nสุขภาพ',
+    LabDataScreen(
+    title: 'ผลตรวจสุขภาพ',
+    ),
+    ),
+    // _buildGridItem(
+    //   context,
+    //   Icons.calendar_month_rounded,
+    //   'หมอนัด',
+    //   const AppointmentScreen(
+    //     title: 'หมอนัด',
+    //   ),
+    // ),
+    _buildGridItem(
+    context,
+    Icons.shopify_rounded,
+    'บริการ\nโรงพยาบาล',
+    const ShoppingPage(),
+    ),
+    _buildGridItem(
+    context,
+    Icons.newspaper_rounded,
+    'ข่าวสาร',
+    NewsPage(),
+    ),
+    _buildGridItem(
+    context,
+    Icons.event_repeat_rounded,
+    'ประวัติ\nการรักษา',
+    MedicalHistoryPage(
+    title: 'ประวัติการรักษา',
+    ),
+    ),
+    _buildGridItem(
+    context,
+    Icons.vaccines_rounded,
+    'ประวัติ\nฉีดวัคซีน',
+    VaccinationHistoryPage(
+    title: 'ประวัติฉีดวัคซีน',
+    ),
+    ),
+    _buildGridItem(
+    context,
+    Icons.contact_phone_rounded,
+    'สมุดโทรศัพท์',
+    ContractPage(
+    title: 'สมุดโทรศัพท์',
+    ),
+    ),
+    ],
+    ),
+    ),
+    _buildSectionHeader("คุณอาจสนใจ !!", Icons.medical_services),
+    const SizedBox(height: 10),
+    _buildPromotionCarousel(),
+    ],
+    ),
+    ),
+    ),
+    ],
+
     );
+
   }
 
   Widget _buildCarousel(double height) {

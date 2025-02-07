@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rchapp_v2/widget/virusbackgroundpainter.dart';
 
 class VaccinationHistoryPage extends StatelessWidget {
   final List<Map<String, String>> vaccinationRecords = [
@@ -45,66 +46,72 @@ class VaccinationHistoryPage extends StatelessWidget {
               bottomLeft: Radius.circular(25)),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemCount: vaccinationRecords.length,
-          itemBuilder: (context, index) {
-            final record = vaccinationRecords[index];
-            return Card(
-              margin: const EdgeInsets.symmetric(vertical: 10.0),
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Vaccine: ${record["vaccineName"]}",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      "Date: ${record["date"]}",
-                      style: const TextStyle(fontSize: 14, color: Colors.grey),
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      "Provider: ${record["provider"]}",
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                    const SizedBox(height: 5),
-                    Row(
+      body: Stack(
+        children: [
+          Positioned.fill(child: CustomPaint(painter: VirusBackgroundPainter())),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView.builder(
+              itemCount: vaccinationRecords.length,
+              itemBuilder: (context, index) {
+                final record = vaccinationRecords[index];
+                return Card(
+                  margin: const EdgeInsets.symmetric(vertical: 10.0),
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Status: ",
-                          style: TextStyle(fontSize: 14),
-                        ),
                         Text(
-                          record["status"]!,
-                          style: TextStyle(
-                            fontSize: 14,
+                          "Vaccine: ${record["vaccineName"]}",
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: record["status"] == "Completed"
-                                ? Colors.green
-                                : Colors.red,
+                            fontSize: 16,
                           ),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          "Date: ${record["date"]}",
+                          style: const TextStyle(fontSize: 14, color: Colors.grey),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          "Provider: ${record["provider"]}",
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                        const SizedBox(height: 5),
+                        Row(
+                          children: [
+                            const Text(
+                              "Status: ",
+                              style: TextStyle(fontSize: 14),
+                            ),
+                            Text(
+                              record["status"]!,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: record["status"] == "Completed"
+                                    ? Colors.green
+                                    : Colors.red,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
+
     );
   }
 }

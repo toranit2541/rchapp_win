@@ -4,9 +4,10 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:rchapp_v2/data/apiexception.dart';
 import 'package:rchapp_v2/data/apiservice.dart';
 import 'package:rchapp_v2/sreens/authen/login.dart';
+import 'package:rchapp_v2/widget/healthcarepainter.dart';
 
 class Register extends StatefulWidget {
-  const Register({super.key});
+  const Register({super.key, required String title});
 
   @override
   State<Register> createState() => _RegisterState();
@@ -110,211 +111,228 @@ class _RegisterState extends State<Register> {
               bottomLeft: Radius.circular(25)),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Form(
-            key: _formKey, // Attach the form key here
+      body: Stack(
+        children: [
+          // Background painter
+          Positioned.fill(
+            child: CustomPaint(
+              painter: HealthCarePainter(),
+            ),
+          ),
+
+          // Content with scrolling
+          SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+              children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: Center(
-                    child: SizedBox(
-                      width: 200,
-                      height: 150,
-                      child: Image.asset('assets/images/rb_3115.png'),
-                    ),
-                  ),
-                ),
-                _buildTextFormField(
-                  hintText: 'Enter ID Card',
-                  labelText: 'ID Card',
-                  icon: Icons.badge,
-                  controller: _idCardController,
-                  validator: MultiValidator([
-                    RequiredValidator(errorText: 'Enter ID Card'),
-                    MinLengthValidator(3,
-                        errorText: 'Minimum 3 characters required'),
-                  ]).call,
-                ),
-                _buildTextFormField(
-                  hintText: 'Enter Password',
-                  labelText: 'Password',
-                  icon: Icons.lock,
-                  controller: _passwordController,
-                  isPassword: true,
-                  validator: MultiValidator([
-                    RequiredValidator(errorText: 'Enter Password'),
-                    MinLengthValidator(3,
-                        errorText: 'Minimum 3 characters required'),
-                  ]).call,
-                ),
-                _buildTextFormField(
-                  hintText: 'Enter Confirm Password',
-                  labelText: 'Confirm Password',
-                  icon: Icons.lock,
-                  controller: _confirmPasswordController,
-                  isPassword: true,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Confirm Password is required';
-                    }
-                    if (value != _passwordController.text) {
-                      return 'Passwords do not match';
-                    }
-                    return null;
-                  },
-                ),
-                _buildTextFormField(
-                  hintText: 'Enter First Name',
-                  labelText: 'First Name',
-                  icon: Icons.person,
-                  controller: _firstNameController,
-                  validator: MultiValidator([
-                    RequiredValidator(errorText: 'Enter first name'),
-                    MinLengthValidator(3,
-                        errorText: 'Minimum 3 characters required'),
-                  ]).call,
-                ),
-                _buildTextFormField(
-                  hintText: 'Enter Last Name',
-                  labelText: 'Last Name',
-                  icon: Icons.person,
-                  controller: _lastNameController,
-                  validator: MultiValidator([
-                    RequiredValidator(errorText: 'Enter last name'),
-                    MinLengthValidator(3,
-                        errorText: 'Minimum 3 characters required'),
-                  ]).call,
-                ),
-                _buildDatePickerFormField(
-                  hintText: 'Enter Birth Day',
-                  labelText: 'Birth Day',
-                  icon: Icons.calendar_today,
-                  controller: _birthDateController,
-                  validator: MultiValidator([
-                    RequiredValidator(errorText: 'Enter Birth Day'),
-                  ]).call,
-                  onTap: () async {
-                    DateTime? pickedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(1900),
-                      lastDate: DateTime.now(),
-                    );
-                    setState(() {
-                      _birthDateController.text =
-                          '${pickedDate?.toLocal()}'.split(' ')[0];
-                    });
-                  },
-                ),
-                _buildDropdownFormField(
-                  hintText: 'Select Gender',
-                  labelText: 'Gender',
-                  icon: Icons.wc,
-                  value: _selectedGender,
-                  items: _genderOptions,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please select a gender';
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedGender = value;
-                    });
-                  },
-                ),
-                _buildTextFormField(
-                  hintText: 'Email',
-                  labelText: 'Email',
-                  icon: Icons.email,
-                  controller: _emailController,
-                  validator: MultiValidator([
-                    RequiredValidator(errorText: 'Enter email address'),
-                    EmailValidator(errorText: 'Please enter a valid email'),
-                  ]).call,
-                ),
-                _buildTextFormField(
-                  hintText: 'Mobile',
-                  labelText: 'Mobile',
-                  icon: Icons.phone,
-                  controller: _phoneController,
-                  validator: MultiValidator([
-                    RequiredValidator(errorText: 'Enter mobile number'),
-                    PatternValidator(r'^\d{10}$',
-                        errorText: 'Enter a valid mobile number'),
-                  ]).call,
-                ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: _isLoading ? null : _register,
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
+                  padding: const EdgeInsets.all(12.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20.0),
+                          child: Center(
+                            child: SizedBox(
+                              width: 200,
+                              height: 150,
+                              child: Image.asset('assets/images/rb_3115.png'),
+                            ),
                           ),
                         ),
-                        child: _isLoading
-                            ? const CircularProgressIndicator(
-                                color: Colors.white)
-                            : const Text('Register',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 22)),
-                      ),
-                    ),
-                  ),
-                ),
-                const Center(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 20),
-                    child: Text(
-                      'Or Sign Up Using',
-                    ),
-                  ),
-                ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 20, left: 90),
-                    child: Row(
-                      children: [
-                        _buildIconContainer('assets/images/facebook.svg'),
-                        _buildIconContainer('assets/images/google.svg'),
+                        _buildTextFormField(
+                          hintText: 'Enter ID Card',
+                          labelText: 'ID Card',
+                          icon: Icons.badge,
+                          controller: _idCardController,
+                          validator: MultiValidator([
+                            RequiredValidator(errorText: 'Enter ID Card'),
+                            MinLengthValidator(3,
+                                errorText: 'Minimum 3 characters required'),
+                          ]).call,
+                        ),
+                        _buildTextFormField(
+                          hintText: 'Enter Password',
+                          labelText: 'Password',
+                          icon: Icons.lock,
+                          controller: _passwordController,
+                          isPassword: true,
+                          validator: MultiValidator([
+                            RequiredValidator(errorText: 'Enter Password'),
+                            MinLengthValidator(3,
+                                errorText: 'Minimum 3 characters required'),
+                          ]).call,
+                        ),
+                        _buildTextFormField(
+                          hintText: 'Enter Confirm Password',
+                          labelText: 'Confirm Password',
+                          icon: Icons.lock,
+                          controller: _confirmPasswordController,
+                          isPassword: true,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Confirm Password is required';
+                            }
+                            if (value != _passwordController.text) {
+                              return 'Passwords do not match';
+                            }
+                            return null;
+                          },
+                        ),
+                        _buildTextFormField(
+                          hintText: 'Enter First Name',
+                          labelText: 'First Name',
+                          icon: Icons.person,
+                          controller: _firstNameController,
+                          validator: MultiValidator([
+                            RequiredValidator(errorText: 'Enter first name'),
+                            MinLengthValidator(3,
+                                errorText: 'Minimum 3 characters required'),
+                          ]).call,
+                        ),
+                        _buildTextFormField(
+                          hintText: 'Enter Last Name',
+                          labelText: 'Last Name',
+                          icon: Icons.person,
+                          controller: _lastNameController,
+                          validator: MultiValidator([
+                            RequiredValidator(errorText: 'Enter last name'),
+                            MinLengthValidator(3,
+                                errorText: 'Minimum 3 characters required'),
+                          ]).call,
+                        ),
+                        _buildDatePickerFormField(
+                          hintText: 'Enter Birth Day',
+                          labelText: 'Birth Day',
+                          icon: Icons.calendar_today,
+                          controller: _birthDateController,
+                          validator: MultiValidator([
+                            RequiredValidator(errorText: 'Enter Birth Day'),
+                          ]).call,
+                          onTap: () async {
+                            DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1900),
+                              lastDate: DateTime.now(),
+                            );
+                            setState(() {
+                              _birthDateController.text =
+                              '${pickedDate?.toLocal()}'.split(' ')[0];
+                            });
+                          },
+                        ),
+                        _buildDropdownFormField(
+                          hintText: 'Select Gender',
+                          labelText: 'Gender',
+                          icon: Icons.wc,
+                          value: _selectedGender,
+                          items: _genderOptions,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please select a gender';
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedGender = value;
+                            });
+                          },
+                        ),
+                        _buildTextFormField(
+                          hintText: 'Email',
+                          labelText: 'Email',
+                          icon: Icons.email,
+                          controller: _emailController,
+                          validator: MultiValidator([
+                            RequiredValidator(errorText: 'Enter email address'),
+                            EmailValidator(errorText: 'Please enter a valid email'),
+                          ]).call,
+                        ),
+                        _buildTextFormField(
+                          hintText: 'Mobile',
+                          labelText: 'Mobile',
+                          icon: Icons.phone,
+                          controller: _phoneController,
+                          validator: MultiValidator([
+                            RequiredValidator(errorText: 'Enter mobile number'),
+                            PatternValidator(r'^\d{10}$',
+                                errorText: 'Enter a valid mobile number'),
+                          ]).call,
+                        ),
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(18.0),
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              height: 50,
+                              child: ElevatedButton(
+                                onPressed: _isLoading ? null : _register,
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                ),
+                                child: _isLoading
+                                    ? const CircularProgressIndicator(
+                                    color: Colors.white)
+                                    : const Text('Register',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 22)),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const Center(
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 20),
+                            child: Text(
+                              'Or Sign Up Using',
+                            ),
+                          ),
+                        ),
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 20, left: 90),
+                            child: Row(
+                              children: [
+                                _buildIconContainer('assets/images/facebook.svg'),
+                                _buildIconContainer('assets/images/google.svg'),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Center(
+                          child: Container(
+                            padding: const EdgeInsets.only(top: 60),
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const LoginPage(
+                                        title: 'Rch Plus',
+                                      )),
+                                );
+                              },
+                              child: const Text('SIGN IN'),
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ),
                 ),
-                Center(
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 60),
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LoginPage(
-                                    title: 'Rch Plus',
-                                  )),
-                        );
-                      },
-                      child: const Text('SIGN IN'),
-                    ),
-                  ),
-                )
               ],
             ),
           ),
-        ),
+        ],
       ),
     );
   }
+
 
 // Example of _buildIconContainer implementation
   Widget _buildIconContainer(String assetPath) {

@@ -1,46 +1,86 @@
 [
     {
-        "merged": "com.example.rchapp_v2.app-merged_res-28:/mipmap-xhdpi_icons.png.flat",
-        "source": "com.example.rchapp_v2.app-main-23:/mipmap-xhdpi/icons.png"
+        "merged": "com.example.rchapp_v2.app-merged_res-28:/mipmap-xhdpi_icons.gif.flat",
+        "source": "com.example.rchapp_v2.app-main-23:/mipmap-xhdpi/icons.gif"
     },
     {
-        "merged": "com.example.rchapp_v2.app-merged_res-28:/mipmap-mdpi_icons.png.flat",
-        "source": "com.example.rchapp_v2.app-main-23:/mipmap-mdpi/icons.png"
+        "merged": "C:\\Users\\king\\.gradle\\daemon\\8.3\\com.example.rchapp_v2.app-merged_res-28:\\drawable-v21_launch_background.xml.flat",
+        "source": "C:\\Users\\king\\.gradle\\daemon\\8.3\\com.example.rchapp_v2.app-main-23:\\drawable-v21\\launch_background.xml"
     },
     {
-        "merged": "com.example.rchapp_v2.app-merged_res-28:/drawable-v21_launch_background.xml.flat",
-        "source": "com.example.rchapp_v2.app-main-23:/drawable-v21/launch_background.xml"
+        "merged": "C:\\Users\\king\\.gradle\\daemon\\8.3\\com.example.rchapp_v2.app-merged_res-28:\\mipmap-xhdpi_icons.png.flat",
+        "source": "C:\\Users\\king\\.gradle\\daemon\\8.3\\com.example.rchapp_v2.app-main-23:\\mipmap-xhdpi\\icons.png"
     },
     {
-        "merged": "com.example.rchapp_v2.app-merged_res-28:/mipmap-xxhdpi_ic_launcher.png.flat",
-        "source": "com.example.rchapp_v2.app-main-23:/mipmap-xxhdpi/ic_launcher.png"
+        "merged": "C:\\Users\\king\\.gradle\\daemon\\8.3\\com.example.rchapp_v2.app-merged_res-28:\\mipmap-mdpi_icons.png.flat",
+        "source": "C:\\Users\\king\\.gradle\\daemon\\8.3\\com.example.rchapp_v2.app-main-23:\\mipmap-mdpi\\icons.png"
     },
     {
-        "merged": "com.example.rchapp_v2.app-merged_res-28:/mipmap-xhdpi_ic_launcher.png.flat",
-        "source": "com.example.rchapp_v2.app-main-23:/mipmap-xhdpi/ic_launcher.png"
+        "merged": "com.example.rchapp_v2.app-merged_res-28:/mipmap-hdpi_icons.gif.flat",
+        "source": "com.example.rchapp_v2.app-main-23:/mipmap-hdpi/icons.gif"
     },
     {
-        "merged": "com.example.rchapp_v2.app-merged_res-28:/mipmap-hdpi_icons.png.flat",
-        "source": "com.example.rchapp_v2.app-main-23:/mipmap-hdpi/icons.png"
+        "merged": "C:\\Users\\king\\.gradle\\daemon\\8.3\\com.example.rchapp_v2.app-merged_res-28:\\mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\king\\.gradle\\daemon\\8.3\\com.example.rchapp_v2.app-main-23:\\mipmap-xxxhdpi\\ic_launcher.png"
     },
     {
-        "merged": "com.example.rchapp_v2.app-merged_res-28:/mipmap-xxxhdpi_icons.png.flat",
-        "source": "com.example.rchapp_v2.app-main-23:/mipmap-xxxhdpi/icons.png"
+        "merged": "C:\\Users\\king\\.gradle\\daemon\\8.3\\com.example.rchapp_v2.app-merged_res-28:\\mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\king\\.gradle\\daemon\\8.3\\com.example.rchapp_v2.app-main-23:\\mipmap-xhdpi\\ic_launcher.png"
     },
     {
-        "merged": "com.example.rchapp_v2.app-merged_res-28:/mipmap-hdpi_ic_launcher.png.flat",
-        "source": "com.example.rchapp_v2.app-main-23:/mipmap-hdpi/ic_launcher.png"
+        "merged": "C:\\Users\\king\\.gradle\\daemon\\8.3\\com.example.rchapp_v2.app-merged_res-28:\\mipmap-xxhdpi_icons.png.flat",
+        "source": "C:\\Users\\king\\.gradle\\daemon\\8.3\\com.example.rchapp_v2.app-main-23:\\mipmap-xxhdpi\\icons.png"
     },
     {
-        "merged": "com.example.rchapp_v2.app-merged_res-28:/mipmap-xxhdpi_icons.png.flat",
-        "source": "com.example.rchapp_v2.app-main-23:/mipmap-xxhdpi/icons.png"
+        "merged": "com.example.rchapp_v2.app-merged_res-28:/mipmap-hdpi_icon.png.flat",
+        "source": "com.example.rchapp_v2.app-main-23:/mipmap-hdpi/icon.png"
     },
     {
-        "merged": "com.example.rchapp_v2.app-merged_res-28:/mipmap-mdpi_ic_launcher.png.flat",
-        "source": "com.example.rchapp_v2.app-main-23:/mipmap-mdpi/ic_launcher.png"
+        "merged": "com.example.rchapp_v2.app-merged_res-28:/mipmap-xxhdpi_icons.gif.flat",
+        "source": "com.example.rchapp_v2.app-main-23:/mipmap-xxhdpi/icons.gif"
     },
     {
-        "merged": "com.example.rchapp_v2.app-merged_res-28:/mipmap-xxxhdpi_ic_launcher.png.flat",
-        "source": "com.example.rchapp_v2.app-main-23:/mipmap-xxxhdpi/ic_launcher.png"
+        "merged": "C:\\Users\\king\\.gradle\\daemon\\8.3\\com.example.rchapp_v2.app-merged_res-28:\\mipmap-hdpi_icons.png.flat",
+        "source": "C:\\Users\\king\\.gradle\\daemon\\8.3\\com.example.rchapp_v2.app-main-23:\\mipmap-hdpi\\icons.png"
+    },
+    {
+        "merged": "com.example.rchapp_v2.app-merged_res-28:/mipmap-mdpi_icons.gif.flat",
+        "source": "com.example.rchapp_v2.app-main-23:/mipmap-mdpi/icons.gif"
+    },
+    {
+        "merged": "com.example.rchapp_v2.app-merged_res-28:/mipmap-xxhdpi_icon.png.flat",
+        "source": "com.example.rchapp_v2.app-main-23:/mipmap-xxhdpi/icon.png"
+    },
+    {
+        "merged": "com.example.rchapp_v2.app-merged_res-28:/mipmap-mdpi_icon.png.flat",
+        "source": "com.example.rchapp_v2.app-main-23:/mipmap-mdpi/icon.png"
+    },
+    {
+        "merged": "C:\\Users\\king\\.gradle\\daemon\\8.3\\com.example.rchapp_v2.app-merged_res-28:\\mipmap-xxxhdpi_icons.png.flat",
+        "source": "C:\\Users\\king\\.gradle\\daemon\\8.3\\com.example.rchapp_v2.app-main-23:\\mipmap-xxxhdpi\\icons.png"
+    },
+    {
+        "merged": "C:\\Users\\king\\.gradle\\daemon\\8.3\\com.example.rchapp_v2.app-merged_res-28:\\mipmap-mdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\king\\.gradle\\daemon\\8.3\\com.example.rchapp_v2.app-main-23:\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "com.example.rchapp_v2.app-merged_res-28:/mipmap-xxxhdpi_icon.png.flat",
+        "source": "com.example.rchapp_v2.app-main-23:/mipmap-xxxhdpi/icon.png"
+    },
+    {
+        "merged": "C:\\Users\\king\\.gradle\\daemon\\8.3\\com.example.rchapp_v2.app-merged_res-28:\\mipmap-hdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\king\\.gradle\\daemon\\8.3\\com.example.rchapp_v2.app-main-23:\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "com.example.rchapp_v2.app-merged_res-28:/mipmap-xhdpi_icon.png.flat",
+        "source": "com.example.rchapp_v2.app-main-23:/mipmap-xhdpi/icon.png"
+    },
+    {
+        "merged": "com.example.rchapp_v2.app-merged_res-28:/mipmap-xxxhdpi_icons.gif.flat",
+        "source": "com.example.rchapp_v2.app-main-23:/mipmap-xxxhdpi/icons.gif"
+    },
+    {
+        "merged": "C:\\Users\\king\\.gradle\\daemon\\8.3\\com.example.rchapp_v2.app-merged_res-28:\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\king\\.gradle\\daemon\\8.3\\com.example.rchapp_v2.app-main-23:\\mipmap-xxhdpi\\ic_launcher.png"
     }
 ]

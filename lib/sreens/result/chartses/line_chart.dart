@@ -72,6 +72,12 @@ class _LineChartsState extends State<LineCharts> {
           border: Border.all(color: Colors.grey, width: 1),
         ),
         titlesData: FlTitlesData(
+          topTitles: AxisTitles(
+            sideTitles: SideTitles(showTitles: false), // Hide top titles
+          ),
+          rightTitles: AxisTitles(
+            sideTitles: SideTitles(showTitles: false), // Hide right titles
+          ),
           bottomTitles: AxisTitles(
             sideTitles: SideTitles(
               showTitles: true,
@@ -79,7 +85,7 @@ class _LineChartsState extends State<LineCharts> {
               getTitlesWidget: (value, meta) {
                 final date = DateTime.fromMillisecondsSinceEpoch(value.toInt());
                 return Transform.rotate(
-                  angle: -90 * 3.1415926535897932 / 180, // Convert degrees to radians
+                  angle: -90 * 3.1415926535897932 / 225, // Convert degrees to radians
                   child: Text(
                     DateFormat('MM/yyyy').format(date),
                     style: const TextStyle(fontSize: 10),
@@ -101,6 +107,7 @@ class _LineChartsState extends State<LineCharts> {
             ),
           ),
         ),
+
         lineTouchData: LineTouchData(
           touchTooltipData: LineTouchTooltipData(
             getTooltipItems: (touchedSpots) {

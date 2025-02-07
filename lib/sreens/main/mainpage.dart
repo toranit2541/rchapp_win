@@ -20,7 +20,7 @@ class _MainPageState extends State<MainPage> {
     HomePage(),
     const QueuePage(),
     const AppointmentScreen(title: 'Rch Plus',),
-    Profilepage(),
+    ProfilePage(),
   ];
 
   @override

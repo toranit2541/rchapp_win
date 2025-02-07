@@ -340,13 +340,13 @@ void _showChartDialog(BuildContext context, List<FlSpot> spots) {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                'Activity Over Time',
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 8),
+                              // const Text(
+                              //   'แผนภูมิเส้น',
+                              //   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              // ),
+                              // const SizedBox(height: 8),
                               SizedBox(
-                                height: 275,
+                                height: 310,
                                 child: LineCharts(spots: spots), // Ensure LineCharts accepts `spots`
                               ),
                             ],
@@ -369,13 +369,13 @@ void _showChartDialog(BuildContext context, List<FlSpot> spots) {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                'Activity Breakdown',
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 8),
+                              // const Text(
+                              //   'แผนภูมิแท่ง',
+                              //   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              // ),
+                              // const SizedBox(height: 8),
                               SizedBox(
-                                height: 275,
+                                height: 310,
                                 child: BarChartWidget(
                                   data: spots
                                       .asMap()
@@ -398,9 +398,9 @@ void _showChartDialog(BuildContext context, List<FlSpot> spots) {
                 // Row 3: Categories, Earnings, Sales
                 Row(
                   children: [
-                    _buildCard('Categories', '25', Colors.purple),
-                    _buildCard('Earnings', '\$3,200', Colors.red),
-                    _buildCard('Sales', '43%', Colors.orange),
+                    _buildCard('ค่าปัจจุบัน', '25', Colors.purple),
+                    _buildCard('ค่ากลาง', '3,200', Colors.red),
+                    _buildCard('ค่าสูงสุด/ต่ำสุด', '43', Colors.orange),
                   ],
                 ),
               ],
