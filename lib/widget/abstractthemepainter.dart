@@ -16,7 +16,7 @@ class AbstractThemePainter extends CustomPainter {
 
     // Draw abstract shapes
     final shapePaint = Paint()
-      ..color = Colors.white.withOpacity(0.2)
+      ..color = Colors.white70
       ..style = PaintingStyle.fill;
 
     canvas.drawCircle(Offset(size.width * 0.3, size.height * 0.3), 80, shapePaint);
